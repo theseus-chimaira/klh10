@@ -114,6 +114,12 @@
 /* Define to 1 if you have the <net/nit.h> header file. */
 #undef HAVE_NET_NIT_H
 
+/* Define to 1 if you have the <pcap/bpf.h> header file. */
+#undef HAVE_PCAP_BPF_H
+
+/* Define to 1 if you have the <pcap/pcap.h> header file. */
+#undef HAVE_PCAP_PCAP_H
+
 /* Set to 1 if we have pcap_set_immediate_mode */
 #undef HAVE_PCAP_SET_IMMEDIATE_MODE
 

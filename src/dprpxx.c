@@ -939,7 +939,7 @@ int
 os_fdseek(osfd_t fd, osdaddr_t addr)
 {
 #if CENV_SYS_UNIX
-    return lseek(fd, addr, L_SET) != -1;
+    return lseek(fd, addr, SEEK_SET) != -1;
 #elif CENV_SYS_MAC || CENV_SYS_MOONMAC
     return lseek(fd, addr, SEEK_SET) != -1;
 #else

@@ -61,7 +61,7 @@ extern char *os_strerror(int);
 #if CENV_SYS_UNIX
 #  include <fcntl.h>	/* For open() */
 #  include <errno.h>
-#  include <sys/file.h>	/* For L_SET */
+#  include <sys/file.h>	/* File access flags */
     typedef int osfd_t;			/* OS open file descriptor */
 # if CENV_SYSF_LFS
     typedef off_t osdaddr_t;		/* OS disk address */

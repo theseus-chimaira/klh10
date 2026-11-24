@@ -115,11 +115,19 @@ esac
 SAVE_LIBS="$LIBS"
 LIBS=""
 AC_CHECK_LIB([socket], [if_nameindex])
-AC_CHECK_LIB([pcap], [pcap_findalldevs])
-# Not all libpcap versions seem to have pcap_set_immediate_mode().
-AC_CHECK_LIB([pcap], [pcap_set_immediate_mode],
-	     [AC_DEFINE(HAVE_PCAP_SET_IMMEDIATE_MODE, 1, [Set to 1 if we have pcap_set_immediate_mode])]
-)
+# Some hosts expose a system libpcap without development headers.
+# Only enable the backend when both the headers and library are usable.
+AC_CHECK_HEADERS([pcap/pcap.h pcap/bpf.h])
+AS_IF([test "x$ac_cv_header_pcap_pcap_h" = xyes &&
+       test "x$ac_cv_header_pcap_bpf_h" = xyes], [
+    AC_CHECK_LIB([pcap], [pcap_findalldevs])
+    AS_IF([test "x$ac_cv_lib_pcap_pcap_findalldevs" = xyes], [
+        # Older libpcap versions lack pcap_set_immediate_mode.
+        AC_CHECK_LIB([pcap], [pcap_set_immediate_mode],
+            [AC_DEFINE(HAVE_PCAP_SET_IMMEDIATE_MODE, 1,
+                [Set to 1 if we have pcap_set_immediate_mode])])
+    ])
+])
 AC_CHECK_LIB([vdeplug], [vde_send])
 NETLIBS="$LIBS"
 LIBS="$SAVE_LIBS"
