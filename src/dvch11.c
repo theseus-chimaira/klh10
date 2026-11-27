@@ -317,7 +317,7 @@ ch11_conf(FILE *f, char *s, struct ch11 *ch)
 	  if (!prm.prm_val)
 	    break;
 	  {
-	    char *c, *s = index(prm.prm_val, '/');
+	    char *c, *s = strchr(prm.prm_val, '/');
 	    if (s == NULL)
 	      break;
 	    else {
@@ -332,7 +332,7 @@ ch11_conf(FILE *f, char *s, struct ch11 *ch)
 		*(--s) = '/';	/* failed to parse chaos, put back slash */
 		break;		/* and complain */
 	      }
-	      if ((c = index(s,':')) != NULL) {
+	      if ((c = strchr(s,':')) != NULL) {
 		long x;
 		if (s_todnum(c+1,&x) && (x > 0) && (x < 0xffff)) {
 		  ipp = x;
